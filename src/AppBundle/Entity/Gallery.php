@@ -25,6 +25,7 @@ class Gallery extends Page
         $this->description = $description;
 
         return $this;
+
     }
 
     /**
