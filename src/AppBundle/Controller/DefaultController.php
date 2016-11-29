@@ -62,6 +62,15 @@ class DefaultController extends Controller
         return new Response($strOut);
     }
     /**
+     * @Route("/form", name="form")
+     */
+    public function formAction(Request $request)
+    {
+        $formBuilder = $this->createFormBuilder();
+        $form = (new Gallery())->createForm($formBuilder, FALSE);
+        return $this->render('default/form.html.twig', ['form' => $form->createView()]);
+    }
+    /**
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
@@ -71,4 +80,5 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
     }
+
 }
