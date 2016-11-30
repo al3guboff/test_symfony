@@ -1,10 +1,10 @@
 <?php
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Extension\Core\Type\TextType;
-use Symfony\Component\Extension\Core\Type\TextareaType;
-use Symfony\Component\Extension\Core\Type\ButtonType;
-use Symfony\Component\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Page;
 /**
  * @ORM\Entity
@@ -25,13 +25,12 @@ class Gallery extends Page
     public function createForm($builder, $isEdit = FALSE)
     {
         return $builder
-            ->add('title')
-            ->add('url')
-            ->add('description')
-            ->add('meta_keywords')
-            ->add('meta_description', TextType::class)
-            ->add('add_image', ButtonType::class, ['attr'=>['class'=>'btn btn-info'], 'label' => '<i class="plus"></i> Добавить изображение'])
-            ->add('save', SubmitType::class, ['label' => 'Создать галерею'])
+            ->setAction('/add/gallery')
+            ->add('title', TextType::class, ['label'=>'Заголовок'])
+            ->add('url', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('meta_keywords', TextareaType::class)
+            ->add('meta_description', TextareaType::class)
             ->getForm();
     }
 

@@ -68,7 +68,16 @@ class DefaultController extends Controller
     {
         $formBuilder = $this->createFormBuilder();
         $form = (new Gallery())->createForm($formBuilder, FALSE);
-        return $this->render('default/form.html.twig', ['form' => $form->createView()]);
+        return $this->render('default/form.html.twig', ['form' => $form->createView(), 'title' => 'Создать галерею']);
+    }
+    /**
+     * @Route("/masterclass", name="add_masterclass")
+     */
+    public function masterclassAction(Request $request)
+    {
+        $form = (new Masterclass())->createForm();
+        return $this->render('default/form_masterclass.html.twig', ['form' => $form->createView(), 'title' => 'Создать мастеркласс']);
+
     }
     /**
      * @Route("/", name="homepage")

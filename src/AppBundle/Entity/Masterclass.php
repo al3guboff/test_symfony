@@ -2,6 +2,13 @@
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Page;
+use Symfony\Component\Form\Forms;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * @ORM\Entity
  * @ORM\Table(name="masterclass")
@@ -32,6 +39,22 @@ class Masterclass extends Page
         return $this;
     }
 
+    public function createForm($isEdit = FALSE)
+    {
+        $formFactory = Forms::createFormFactory();
+        return $formFactory->createBuilder()
+            ->setAction('/add/gallery')
+            ->add('title', TextType::class, ['label'=>'Заголовок'])
+            ->add('url', TextType::class)
+            ->add('teacher', ChoiceType::class, [
+                'choices' => ['Наталия' => 1],
+                'label' => 'Преподаватель'
+            ])
+            ->add('meta_keywords', TextareaType::class)
+            ->add('meta_description', TextareaType::class)
+            ->add('image', FileType::class, ['label' => 'Загрузить изображение'])
+            ->getForm();
+    }
     /**
      * Get image
      *

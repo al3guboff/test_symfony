@@ -1,3 +1,60 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/res/css/add_gallery.css">
+{% endblock %}
+{% block body %}
+<form action="" id="form_gallery">
+    <fieldset><legend>Основные данные</legend>
+        <input type="text" name="form[title]" placeholder="Введите название" required>
+        <input type="text" name="form[url]" placeholder="Введите адрес" required>
+        <textarea name="form[description]" placeholder="Введите описание"></textarea>
+        <textarea name="form[meta_keywords]" placeholder="Введите ключевые слова"></textarea>
+        <textarea name="form[meta_description]" placeholder="Введите meta-description"></textarea>
+    </fieldset>
+</form>
+<fieldset><legend>Картинки</legend>
+    <div class="row">
+        <div class="col-lg-6" id="global-preview">Превью: <input name="global-width" value="150"> x <input name="global-height" value="100"> px</div>
+    </div>
+    <br>
+    <button id="add_image" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Добавить изображение</button> <button id="import_image" class="btn btn-info"><i class="glyphicon glyphicon-th"></i> Импортировать изображения</button>
+</fieldset>
+<div style="clear:both"></div>
+<hr>
+<button class="btn btn-success" value="Создать галерею">Создать галерею</button>
+<br>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="load_image">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Загрузить картинку</h4>
+      </div>
+      <div class="modal-body">
+        <form name="load_image" action="/load_image">
+            <div id="local-preview"><input type="checkbox" name="local-preview"> Превью: <input name="global-width" value="150" disabled="true"> x <input name="global-height" value="100" disabled="true"> px</div>
+            <br>
+            <div><input required name="image-name" placeholder="Название картинки"></div>
+            <br>
+            <input type="file" value="Загрузить картинку" accept="image/jpeg, image/png, image/gif" multiple> 
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{% endblock %}
+{% block javascripts %}
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/res/js/gallery.js"></script>
+{% endblock %}
+

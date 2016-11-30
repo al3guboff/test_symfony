@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/res/css/add_masterclass.css">
+{% endblock %}
+{% block body %}
+    {{ form_start(form, {'attr':{'id':'form_masterclass'}}) }}
+    <fieldset><legend>Основные данные</legend>
+    <div class="row">
+        <div class="col-lg-2">{{ form_label(form.title) }}</div>
+        <div class="col-lg-8">{{ form_widget(form.title) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">{{ form_label(form.url) }}</div>
+        <div class="col-lg-8">{{ form_widget(form.url) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">{{ form_label(form.teacher) }}</div>
+        <div class="col-lg-8">{{ form_widget(form.teacher) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">{{ form_label(form.meta_keywords) }}</div>
+        <div class="col-lg-8">{{ form_widget(form.meta_keywords) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">{{ form_label(form.meta_description) }}</div>
+        <div class="col-lg-8">{{ form_widget(form.meta_description) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">{{ form_label(form.image) }}</div>
+        <div class="col-lg-8">{{ form_widget(form.image) }}</div>
+    </div>
+    </fieldset>
+    {{ form_end(form) }}
+{% endblock %}
+{% block javascripts %}
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+{% endblock %}
