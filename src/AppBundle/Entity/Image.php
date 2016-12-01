@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Image
 {
+    public static $imageDir;
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -44,6 +45,26 @@ class Image
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $mainImage;
+
+    /**
+     */
+    public static function createFromFile($path, $title)
+    {
+        if(!file_exists($path)){
+            throw new Exception("File $path not exists");
+        }
+        $image = new self();
+        $image->setFilesize(filesize($path));
+        $imageSize = getimagesize($path);
+        if($imageSize === FALSE){
+            throw new Exception("File $path not correct image");
+        };
+        $image->setWidth($imageSize[0]);
+        $image->setHeight($imageSize[1]);
+        $image->setTitle($title);
+        return $image;
+
+    }
     
 
     /**

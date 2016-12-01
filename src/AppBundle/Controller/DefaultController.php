@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Page;
 use AppBundle\Entity\Gallery;
 use AppBundle\Entity\Masterclass;
+use AppBundle\Model\MasterclassModel as MasterclassModel;
 
 class DefaultController extends Controller
 {
@@ -75,9 +76,21 @@ class DefaultController extends Controller
      */
     public function masterclassAction(Request $request)
     {
-        $form = (new Masterclass())->createForm();
-        return $this->render('default/form_masterclass.html.twig', ['form' => $form->createView(), 'title' => 'Создать мастеркласс']);
-
+        $masterclassModel = new MasterclassModel();
+        $form = $masterclassModel->createForm();
+        if($form->isSubmitted()){
+            if($form->isValid()){
+                $form->handleRequest($request);
+                $doctrine = $this->getDoctrine();
+                $masterclassModel->createMasterclass($doctrine, $form->getData());
+            }else{
+                // form is invalid
+                return $this->render('default/form_masterclass.html.twig', ['form' => $form->createView(), 'title' => 'Создать мастер-класс']);
+            }
+        }else{
+            // form for add masterclass
+            return $this->render('default/form_masterclass.html.twig', ['form' => $form->createView(), 'title' => 'Создать мастер-класс']);
+        }
     }
     /**
      * @Route("/", name="homepage")

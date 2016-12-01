@@ -16,14 +16,21 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class Masterclass extends Page
 {
     /**
-     * @ORM\Column(type="string")
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     protected $image;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="Teacher")
+     * @ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
      */
-    protected $teacherName;
+    protected $teacher;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
 
     /**
      * Set image
@@ -39,22 +46,8 @@ class Masterclass extends Page
         return $this;
     }
 
-    public function createForm($isEdit = FALSE)
-    {
-        $formFactory = Forms::createFormFactory();
-        return $formFactory->createBuilder()
-            ->setAction('/add/gallery')
-            ->add('title', TextType::class, ['label'=>'Заголовок'])
-            ->add('url', TextType::class)
-            ->add('teacher', ChoiceType::class, [
-                'choices' => ['Наталия' => 1],
-                'label' => 'Преподаватель'
-            ])
-            ->add('meta_keywords', TextareaType::class)
-            ->add('meta_description', TextareaType::class)
-            ->add('image', FileType::class, ['label' => 'Загрузить изображение'])
-            ->getForm();
-    }
+
+    
     /**
      * Get image
      *
