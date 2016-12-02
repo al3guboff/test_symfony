@@ -46,6 +46,8 @@ class Image
      */
     private $mainImage;
 
+    private $imageFile;
+
     /**
      */
     public static function createFromFile($path, $title)
@@ -65,7 +67,23 @@ class Image
         return $image;
 
     }
-    
+
+    public static function createThumb($sourceImage, $width, $height)
+    {
+        if($width == 0 and $height == 0){
+            throw new Exception("Need or 'width' or 'height'");
+        }
+        if($width == 0){
+            $newHeight = $height;
+            $newWidth = ceil($height * $sourceImage->getWidth()/$this->height);
+            
+        }
+        if($height == 0){
+            $newWidth = $width;
+            $newHeight = ceil($width * $sourceImage->getHeight()/$this->width);
+        }
+    }
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="listImage")

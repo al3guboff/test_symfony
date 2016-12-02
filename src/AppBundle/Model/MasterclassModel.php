@@ -40,6 +40,7 @@ class MasterclassModel
         $em = $doctrine->getManager();
         $em->presist($page);
         $em->flush($page);
+        $image = Image::createFromFile($path);
         $teacher = $doctrine->getRepository('AppBundle:Teacher')
             ->findOne($data['teacher']);
 
