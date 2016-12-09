@@ -50,7 +50,7 @@ class Image
 
     /**
      */
-    public static function createFromFile($path, $title)
+    public static function createFromFile($path, $title='')
     {
         if(!file_exists($path)){
             throw new Exception("File $path not exists");

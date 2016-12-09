@@ -78,11 +78,16 @@ class DefaultController extends Controller
     {
         $masterclassModel = new MasterclassModel();
         $form = $masterclassModel->createForm();
+        $form->handleRequest();
         if($form->isSubmitted()){
             if($form->isValid()){
-                $form->handleRequest($request);
                 $doctrine = $this->getDoctrine();
-                $masterclassModel->createMasterclass($doctrine, $form->getData());
+                try{
+                    $masterclassModel->createMasterclass($doctrine, $form->getData(), $this->get('app.filefactory'));
+                }catch(Exception $e){
+                    return new Response('Error: ' . $e->getMessage());
+                };
+                return new Response('OK');
             }else{
                 // form is invalid
                 return $this->render('default/form_masterclass.html.twig', ['form' => $form->createView(), 'title' => 'Создать мастер-класс']);
@@ -92,6 +97,9 @@ class DefaultController extends Controller
             return $this->render('default/form_masterclass.html.twig', ['form' => $form->createView(), 'title' => 'Создать мастер-класс']);
         }
     }
+    /**
+     *
+     */
     /**
      * @Route("/", name="homepage")
      */

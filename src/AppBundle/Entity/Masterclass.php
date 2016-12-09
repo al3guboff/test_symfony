@@ -59,26 +59,49 @@ class Masterclass extends Page
     }
 
     /**
-     * Set teacherName
+     * Set teacher
      *
-     * @param string $teacherName
+     * @param Teacher $teacher
      *
      * @return Masterclass
      */
-    public function setTeacherName($teacherName)
+    public function setTeacher($teacher)
     {
-        $this->teacherName = $teacherName;
+        $this->teacher = $teacher;
 
         return $this;
     }
 
     /**
-     * Get teacherName
+     * Get teacher
+     *
+     * @return Teacher
+     */
+    public function getTeacher()
+    {
+        return $this->teacher;
+    }
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Masterclass
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
      *
      * @return string
      */
-    public function getTeacherName()
+    public function getDescription()
     {
-        return $this->teacherName;
+        return $this->description;
     }
 }

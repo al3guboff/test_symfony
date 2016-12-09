@@ -1,6 +1,10 @@
 <?php
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Page;
 /**
  * @ORM\Entity
@@ -17,6 +21,18 @@ class Gallery extends Page
      * @ORM\OneToMany(targetEntity="Image", mappedBy="gallery")
      */
     private $listImage;
+
+    public function createForm($builder, $isEdit = FALSE)
+    {
+        return $builder
+            ->setAction('/add/gallery')
+            ->add('title', TextType::class, ['label'=>'Заголовок'])
+            ->add('url', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('meta_keywords', TextareaType::class)
+            ->add('meta_description', TextareaType::class)
+            ->getForm();
+    }
 
     /**
      * Set description
@@ -43,4 +59,45 @@ class Gallery extends Page
         return $this->description;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->listImage = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add listImage
+     *
+     * @param \AppBundle\Entity\Image $listImage
+     *
+     * @return Gallery
+     */
+    public function addListImage(\AppBundle\Entity\Image $listImage)
+    {
+        $this->listImage[] = $listImage;
+
+        return $this;
+    }
+
+    /**
+     * Remove listImage
+     *
+     * @param \AppBundle\Entity\Image $listImage
+     */
+    public function removeListImage(\AppBundle\Entity\Image $listImage)
+    {
+        $this->listImage->removeElement($listImage);
+    }
+
+    /**
+     * Get listImage
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getListImage()
+    {
+        return $this->listImage;
+    }
 }

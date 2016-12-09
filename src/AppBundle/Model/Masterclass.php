@@ -18,7 +18,7 @@ class MasterclassModel
     {
         $formFactory = Forms::createFormFactory();
         return $formFactory->createBuilder()
-            ->setAction('/add/gallery')
+            ->setAction('/add/masterclass')
             ->add('title', TextType::class, ['label'=>'Заголовок'])
             ->add('url', TextType::class)
             ->add('teacher', ChoiceType::class, [

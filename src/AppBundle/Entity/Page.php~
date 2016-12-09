@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="page")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"page" = "Page", "masterclass" = "Masterclass", "gallery" = "Gallery"})
+ * @ORM\DiscriminatorMap({"page" = "Page", "masterclass" = "Masterclass", "gallery" = "Gallery", "teacher" = "Teacher"})
  */
 class Page
 {
