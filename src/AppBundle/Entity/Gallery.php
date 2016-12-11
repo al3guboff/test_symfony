@@ -18,7 +18,11 @@ class Gallery extends Page
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="gallery")
+     * @ORM\ManyToMany(targetEntity="Image")
+     * @ORM\JoinTable(name="gallery_image_rel",
+     *          joinColumns={@ORM\JoinColumn(name="gallery_id", referencedColumnName="id")},
+     *          inverseJoinColumns={@ORM\JoinColumn(name="image_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     private $listImage;
 

@@ -85,11 +85,6 @@ class Image
     }
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="listImage")
-     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
-     */
-    private $gallery;
 
     /**
      * Get id
